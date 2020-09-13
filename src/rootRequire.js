@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 function findRoot() {
-	let thisPath = module.filename;
+	let thisPath = module.parent.filename;
 	let done = false;
 	while (!done && thisPath.length > 0) {
 		if (fs.existsSync(path.join(thisPath, 'package.json'))) {
