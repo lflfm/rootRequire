@@ -3,27 +3,28 @@ const path = require('path');
 const fs = require('fs');
 
 function _getCallerFile() { //https://stackoverflow.com/questions/16697791/nodejs-get-filename-of-caller-function
-    var originalFunc = Error.prepareStackTrace;
+	let originalFunc = Error.prepareStackTrace;
 
-    var callerfile;
-    try {
-        var err = new Error();
-        var currentfile;
+	let callerfile;
+	try {
+		let err = new Error();
+		let currentfile;
 
-        Error.prepareStackTrace = function (err, stack) { return stack; };
+		Error.prepareStackTrace = function(_err, stack) { return stack; };
 
-        currentfile = err.stack.shift().getFileName();
+		currentfile = err.stack.shift().getFileName();
 
-        while (err.stack.length) {
-            callerfile = err.stack.shift().getFileName();
+		while (err.stack.length) {
+			callerfile = err.stack.shift().getFileName();
 
-            if(currentfile !== callerfile) break;
-        }
-    } catch (e) {}
+			if (currentfile !== callerfile) break;
+		}
+	}
+	catch (e) {}
 
-    Error.prepareStackTrace = originalFunc; 
+	Error.prepareStackTrace = originalFunc;
 
-    return callerfile;
+	return callerfile;
 }
 
 function findRoot() {
