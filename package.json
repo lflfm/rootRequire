@@ -1,0 +1,19 @@
+{
+	"name": "rootRequire",
+	"version": "1.0.0",
+	"description": "Simple module to use relative paths when requiring files",
+	"main": "src/rootRequire.js",
+	"scripts": {
+		"test": "jsdoc && echo no tests defined"
+	},
+	"author": "Luiz Fernando Mendonca",
+	"license": "SEE LICENSE IN LICENSE.txt",
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com:lflfm/rootRequire.git"
+	},
+	"bugs": {
+		"url": "https://github.com/lflfm/rootRequire/issues"
+	},
+	"homepage": "https://github.com/lflfm/rootRequire#readme",
+}
