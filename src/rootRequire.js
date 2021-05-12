@@ -23,29 +23,36 @@ function _getCallerFile() { //https://stackoverflow.com/questions/16697791/nodej
 	catch (e) {}
 
 	Error.prepareStackTrace = originalFunc;
-
+	if (callerfile == 'REPL' || callerfile == 'REPL2') return '';
 	return callerfile;
 }
 
-function findRoot() {
+function rootPath() {
 	let thisPath = _getCallerFile();
-	let done = false;
-	while (!done && thisPath.length > 0) {
-		if (fs.existsSync(path.join(thisPath, 'package.json'))) {
-			done = true;
-		}
-		else {
+	if (thisPath && thisPath.length > 0) {
+		if (!fs.existsSync(path.join(thisPath, 'package.json'))) {
 			thisPath = thisPath.substr(0, thisPath.lastIndexOf(path.sep));
 		}
+	} else {
+		thisPath = process.cwd();
+		if (!thisPath || thisPath.length<=0) thisPath = __dirname;
 	}
-	if (thisPath.length <= 0) {
-		throw new Error('rootRequire error #1 - no package.json found');
+	if (!thisPath || thisPath.length <= 0) {
+		throw new Error('rootRequire error #1 - cannot determine root path');
 	}
 	return thisPath;
 }
 
-function rootRequire(requirePath) {
-	return require(path.join(findRoot(), requirePath));
+function rootJoin(...paths){
+	return path.join(rootPath(),...paths);
 }
 
-module.exports = rootRequire;
+function rootRequire(requirePath) {
+	return require(rootJoin(requirePath));
+}
+
+module.exports = {
+	rootRequire,
+	rootPath,
+	rootJoin,
+}
