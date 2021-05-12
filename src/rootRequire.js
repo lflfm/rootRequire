@@ -30,13 +30,17 @@ function _getCallerFile() { //https://stackoverflow.com/questions/16697791/nodej
 function rootPath() {
 	let thisPath = _getCallerFile();
 	if (thisPath && thisPath.length > 0) {
-		if (!fs.existsSync(path.join(thisPath, 'package.json'))) {
-			thisPath = thisPath.substr(0, thisPath.lastIndexOf(path.sep));
+		let done = false;
+		while (!done && thisPath.length > 0) {
+			if (fs.existsSync(path.join(thisPath, "package.json"))) {
+				done = true;
+			} else {
+				thisPath = thisPath.substr(0, thisPath.lastIndexOf(path.sep));
+			}
 		}
-	} else {
-		thisPath = process.cwd();
-		if (!thisPath || thisPath.length<=0) thisPath = __dirname;
 	}
+	if (!thisPath || thisPath.length<=0) thisPath = process.cwd();
+	if (!thisPath || thisPath.length<=0) thisPath = __dirname;
 	if (!thisPath || thisPath.length <= 0) {
 		throw new Error('rootRequire error #1 - cannot determine root path');
 	}

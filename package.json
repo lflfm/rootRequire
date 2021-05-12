@@ -1,6 +1,6 @@
 {
 	"name": "rootRequire",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Simple module to use relative paths when requiring files",
 	"main": "src/rootRequire.js",
 	"scripts": {
