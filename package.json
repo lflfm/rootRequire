@@ -10,7 +10,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "git+ssh://git@github.com:lflfm/rootRequire.git"
+		"url": "https://github.com/lflfm/rootRequire.git"
 	},
 	"bugs": {
 		"url": "https://github.com/lflfm/rootRequire/issues"
